@@ -13,9 +13,10 @@ return new class extends Migration {
     {
         Schema::create('reads', function (Blueprint $table) {
             $table->id();
+            $table->string("title")->unique();
             $table->string("content");
             $table->string("level");
-            $table->foreignIdFor(Lang::class);
+            $table->foreignIdFor(Lang::class)->constrained("langs")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
