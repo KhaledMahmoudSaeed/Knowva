@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\LangController;
 use App\Http\Middleware\HandleCors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,7 @@ Route::middleware(HandleCors::class)->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/register', [RegisterController::class, 'register'])->name("register");
-
+    Route::get("/lang", [LangController::class, 'index'])->name("lang.index");
+    Route::post("/lang", [LangController::class, 'store'])->name("lang.store");
+    Route::delete("/lang/{id}", [LangController::class, 'destroy'])->name("lang.destroy");
 });
