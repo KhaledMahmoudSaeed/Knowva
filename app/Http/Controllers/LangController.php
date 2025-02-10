@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lang;
-use GuzzleHttp\Psr7\Response;
+// use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response as status;
+use Symfony\Component\HttpFoundation\Response;
 
 class LangController extends Controller
 {
@@ -14,9 +14,28 @@ class LangController extends Controller
         $langs = Lang::all();
         return response()->json([
             "message" => 'Languages are recived ',
-            "status" => status::HTTP_OK,
+            "status" => Response::HTTP_OK,
             "data" => $langs
-        ], status::HTTP_OK);
+        ], Response::HTTP_OK);
+    }
+
+    public function show($id)
+    {
+
+        $lang = Lang::findOrFail($id);
+        $readings = $lang->reading;
+        $speaking = $lang->speaking;
+        $writing = $lang->writing;
+        $listing = $lang->listing;
+
+        return response()->json([
+            "message" => "This $lang data is reterived successfully",
+            "status" => Response::HTTP_OK,
+            "reading" => $readings,
+            "speaking" => $speaking,
+            "writing" => $writing,
+            "listing" => $listing,
+        ], Response::HTTP_OK);
     }
 
     public function store(Request $request)
@@ -24,16 +43,16 @@ class LangController extends Controller
         if (Lang::where('name', $request->name)->exists()) {
             return response()->json([
                 "Message" => "This lang is exist",
-                "status" => status::HTTP_CONFLICT,
-            ], status::HTTP_CONFLICT);
+                "status" => Response::HTTP_CONFLICT,
+            ], Response::HTTP_CONFLICT);
         }
         Lang::create([
             "name" => $request->name,
         ]);
         return response()->json([
             "message" => "Lang created sucessfully",
-            "status" => status::HTTP_CREATED,
-        ], status::HTTP_CREATED);
+            "status" => Response::HTTP_CREATED,
+        ], Response::HTTP_CREATED);
     }
     public function destroy($id)
     {
@@ -42,13 +61,13 @@ class LangController extends Controller
             $lang->delete();
             return response()->json([
                 "message" => "The lang is deleted successfully",
-                "status" => status::HTTP_OK,
-            ], status::HTTP_OK);
+                "status" => Response::HTTP_OK,
+            ], Response::HTTP_OK);
         }
 
         return response()->json([
             "message" => "Language not found",
-            "status" => status::HTTP_NOT_FOUND,
-        ], status::HTTP_NOT_FOUND);
+            "status" => Response::HTTP_NOT_FOUND,
+        ], Response::HTTP_NOT_FOUND);
     }
 }
