@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->enum('gender', ['male', 'female']);
             $table->string('password');
             $table->string('lang');
-            $table->foreignIdFor(Lang::class)->constrained("langs")->cascadeOnDelete()->cascadeOnUpdate();
+            // $table->foreignIdFor(Lang::class)->constrained("langs")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

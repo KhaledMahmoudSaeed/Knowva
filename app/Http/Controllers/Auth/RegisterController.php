@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'gender' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8'],
             'lang' => ['required', 'string'],
-            'lang_id' => ['required', 'string'],
+            // 'lang_id' => ['required', 'string'],
         ]);
     }
 
@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'password' => Hash::make($data['password']),
             'lang' => $data['lang'],
-            'lang_id' => $data['lang_id'],
+            // 'lang_id' => $data['lang_id'],
         ]);
     }
 }

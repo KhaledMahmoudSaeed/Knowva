@@ -31,6 +31,7 @@ Route::middleware(HandleCors::class)->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/register', [RegisterController::class, 'register'])->name("register");
+    // Route::get('/user', [RegisterController::class, 'index'])->name("user");
     // lang api
     Route::get("/lang", [LangController::class, 'index'])->name("lang.index");
     Route::post("/lang", [LangController::class, 'store'])->name("lang.store");
